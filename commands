@@ -1,0 +1,7 @@
+docker-compose --verbose up --build
+
+docker-compose exec app bash
+mvn liquibase:update
+mvn liquibase:rollback -Dliquibase.rollbackCount=1
+
+curl -X POST -H "Content-Type: application/json" localhost:8081/user -d '{"username":"user_1", "password": "password_1"}'

@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:15.9
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/db/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER}" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  app:
+    build: .
+    restart: always
+    ports:
+      - "8082:8081"
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:
