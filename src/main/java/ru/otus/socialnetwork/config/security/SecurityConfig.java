@@ -15,8 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.otus.socialnetwork.entity.UserAuth;
+import ru.otus.socialnetwork.entity.auth.UserAuth;
 import ru.otus.socialnetwork.repository.UserRepository;
+import ru.otus.socialnetwork.service.security.TokenService;
 
 import java.util.Set;
 
@@ -25,20 +26,20 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final TokenService tokenService;
     private final UserRepository userRepository;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers("/register", "/login").permitAll();
                     request.anyRequest().authenticated();
-//                    request.anyRequest().permitAll();
                 })
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                .authenticationProvider(authenticationProvider())
-                .addFilterAfter(new JWTAuthorizationFilter(userRepository), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(new JwtAuthorizationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
 //                .addFilterAfter(bearerTokenAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

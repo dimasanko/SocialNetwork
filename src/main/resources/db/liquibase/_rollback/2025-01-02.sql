@@ -1,1 +1,1 @@
-truncate account;
+truncate "user";

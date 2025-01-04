@@ -1,11 +1,10 @@
 package ru.otus.socialnetwork.repository.query;
 
 import io.undertow.util.FileUtils;
-import lombok.Getter;
 
 public enum UserQuery {
 
-    GET_ACCOUNT_BY_USERNAME("db/sql/account/get_account_by_username.sql"),
+    GET_ACCOUNT_BY_USERNAME("db/sql/user/get_user_by_username.sql"),
 
     ;
 

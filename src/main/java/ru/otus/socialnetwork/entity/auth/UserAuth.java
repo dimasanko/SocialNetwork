@@ -1,4 +1,4 @@
-package ru.otus.socialnetwork.entity;
+package ru.otus.socialnetwork.entity.auth;
 
 import lombok.Getter;
 import lombok.Setter;

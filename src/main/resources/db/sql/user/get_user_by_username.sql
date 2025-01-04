@@ -1,5 +1,5 @@
 select a.id
      , a.username
      , a.password
-  from account a
+  from "user" a
  where a.username = :username
