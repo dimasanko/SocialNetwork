@@ -6,7 +6,7 @@
 
     <changeSet id="2024-11-19" author="dimasanko">
 
-        <sqlFile path="../tables/user/2024-11-19_create-user-table.sql" relativeToChangelogFile="true" />
+        <sqlFile path="../tables/account/2024-11-19_create-account-table.sql" relativeToChangelogFile="true" />
         
         <rollback>
             <sqlFile path="../_rollback/2024-11-19.sql" relativeToChangelogFile="true"/>

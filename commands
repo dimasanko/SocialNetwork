@@ -5,3 +5,7 @@ mvn liquibase:update
 mvn liquibase:rollback -Dliquibase.rollbackCount=1
 
 curl -X POST -H "Content-Type: application/json" localhost:8081/user -d '{"username":"user_1", "password": "password_1"}'
+
+netsh interface ipv4 show excludedportrange protocol=tcp
+
+docker compose down -v && docker image rm socialnetwork-app && mvn clean

@@ -1,1 +1,1 @@
-drop table cars;
+drop table account;

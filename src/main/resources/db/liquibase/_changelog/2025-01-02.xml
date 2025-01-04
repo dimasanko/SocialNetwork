@@ -4,7 +4,13 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <include file="_changelog/2024-11-19.xml" relativeToChangelogFile="true" />
-    <include file="_changelog/2025-01-02.xml" relativeToChangelogFile="true" />
+    <changeSet id="2025-01-02" author="dimasanko">
+
+        <sqlFile path="../tables/account/2025-01-02_insert-accounts.sql" relativeToChangelogFile="true" />
+        
+        <rollback>
+            <sqlFile path="../_rollback/2025-01-02.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
 
 </databaseChangeLog>
